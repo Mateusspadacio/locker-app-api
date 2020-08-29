@@ -1,31 +1,29 @@
 import mongoose from 'mongoose';
 
-export const STANDARD_ROLE = 2;
-export const ARTIST_ROLE = 1;
 const { Schema } = mongoose;
 const userSchema = new Schema({
-  firstName: {
+  name: {
     type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
-  role: {
-    default: 2,
+  cpf: {
+    type: String,
     required: true,
-    type: Number,
+    maxlength: 11
   },
+  born: {
+    type: Date,
+    required: true
+  }
 });
 
 export default mongoose.model('User', userSchema);
