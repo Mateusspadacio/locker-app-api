@@ -10,6 +10,6 @@ jobs:
         uses: actions/setup-node@v1.4.3
         with:
           always-auth: false
-          node-version: >=12.x
+          node-version: ">=12.x"
       - name: Build application
         run: npm build
