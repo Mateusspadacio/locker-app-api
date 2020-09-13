@@ -1,5 +1,8 @@
-import Joi from 'joi';
+import BaseJoi from 'joi';
+import Extension from 'joi-date-extensions';
 import bcrypt from 'bcryptjs';
+
+const Joi = BaseJoi.extend(Extension);
 
 export default {
   encryptPassword(palinText) {
@@ -16,7 +19,7 @@ export default {
       password: Joi.string().required().min(6).max(15),
       repassword: Joi.string().required().min(6).max(15),
       cpf: Joi.string().required().regex(/^\d{11}$/),
-      born: Joi.date().required()
+      born: Joi.date().format('DD.MM.YYYY').required()
     });
 
     const { value, error } = Joi.validate(body, schema);
