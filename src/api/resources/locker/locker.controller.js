@@ -11,7 +11,7 @@ export default {
             return res.status(400).json({ params: validator.params });
         }
         
-        const range = lockerService.getRange(long, lat, 0.005000);
+        const range = lockerService.getRange(long, lat, 0.090000);
 
         const lockers = await lockerGroup.find({
             long: {

@@ -14,6 +14,7 @@ export default {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required().min(6).max(15),
+      repassword: Joi.string().required().min(6).max(15),
       cpf: Joi.string().required().regex(/^\d{11}$/),
       born: Joi.date().required()
     });

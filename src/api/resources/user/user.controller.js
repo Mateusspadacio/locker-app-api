@@ -10,9 +10,14 @@ export default {
         return res.status(400).json(error);
       }
 
-      const hasUser = await User.findOne({ email: value.email });
+      let hasUser = await User.findOne({ email: value.email });
       if (hasUser) {
-        return res.status(400).json({ message: 'Já existe um usuário com este email' });
+        return res.status(400).json({ message: 'Já existe um usuário com este email.' });
+      }
+
+      hasUser = await User.findOne({ cpf: value.cpf });
+      if (hasUser) {
+        return res.status(400).json({ message: 'Já existe um usuário com este Cpf.' });
       }
 
       const encryptedPass = userService.encryptPassword(value.password);
@@ -24,7 +29,9 @@ export default {
         cpf: value.cpf,
         born: value.born
       });
-      return res.json({ success: true });
+
+      const token = jwt.issue({ id: user._id }, '7d');
+      return res.json({ success: true, token });
     } catch (err) {
       console.error(err);
       return res.status(500).send(err);
@@ -38,12 +45,13 @@ export default {
       }
       const user = await User.findOne({ email: value.email });
       if (!user) {
-        return res.status(401).json({ message: 'Email ou senha inválidos' });
+        return res.status(401).json({ message: 'Email ou senha inválidos.' });
       }
       const authenticted = userService.comparePassword(value.password, user.password);
       if (!authenticted) {
-        return res.status(401).json({ message: 'Email ou senha inválidos' });
+        return res.status(401).json({ message: 'Email ou senha inválidos.' });
       }
+
       const token = jwt.issue({ id: user._id }, '7d');
       return res.status(200).json({ token });
     } catch (err) {
