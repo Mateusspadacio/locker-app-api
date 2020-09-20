@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { getConfig } from './config';
+import env from './env';
 
-const config = getConfig(process.env.NODE_ENV);
 mongoose.Promise = global.Promise;
-export const connect = () => mongoose.connect(config.MONGO_URI);
+export const connect = () => mongoose.connect(env.mongoUri);

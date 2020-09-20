@@ -1,13 +1,12 @@
 import Passport from 'passport';
 import PassportJWT from 'passport-jwt';
-import { getConfig } from '../../config/config';
+import env from '../../config/env';
 import User from '../resources/user/user.model';
 
-const config = getConfig(process.env.NODE_ENV);
 export const configJWTStrategy = () => {
   const opts = {
     jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.secret,
+    secretOrKey: env.secret,
   };
   Passport.use(
     new PassportJWT.Strategy(opts, (paylod, done) => {

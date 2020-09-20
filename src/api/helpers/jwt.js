@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
-import { getConfig } from '../../config/config';
+import env from '../../config/env';
 
-const config = getConfig(process.env.NODE_ENV);
 export default {
   issue(payload, expiresIn) {
-    return jwt.sign(payload, config.secret, {
+    return jwt.sign(payload, env.secret, {
       expiresIn,
     });
   },

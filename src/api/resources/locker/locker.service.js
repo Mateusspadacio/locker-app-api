@@ -1,3 +1,4 @@
+import repository from './locker.repository';
 
 export default {
     validateParams({ long, lat }) {
@@ -23,5 +24,10 @@ export default {
         const latMin = lat - distance;
         const latMax = lat + distance;
         return { longMin, longMax, latMin, latMax };
+    },
+
+    findLockersByRange(long, lat) {
+        const range = this.getRange(long, lat, 0.090000);
+        return repository.findByRange(range);
     }
 }
