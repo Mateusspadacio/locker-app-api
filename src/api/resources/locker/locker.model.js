@@ -7,6 +7,11 @@ const lockerSchema = new Schema({
         ref: 'LockerGroup',
         index: true
     },
+    number: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     available: {
         type: Number,
         default: 0
